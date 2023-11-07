@@ -38,7 +38,7 @@ export default function Riders() {
                         <tr key={index} className={rank === 1 ? 'mayor' : ''}>
                             <td class="count"><div class={`icon rank${rank}`}/></td>
                             <td class="photo">
-                                <img width="124" height="124" alt={`Phone of ${rider.name} in costume`}
+                                <img width="124" height="124" alt={`Photo of ${rider.name} in costume`}
                                     src={`${rider.name}.jpg`} /></td>
                             <td><a href={`https://www.strava.com/athletes/${rider.id}`}>{rider.name}</a></td>
                             <td class="count">{rider.count}</td><td>Details</td>
