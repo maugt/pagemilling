@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: riders
+  labels:
+    {{- include "pagemilling.labels" . | nindent 4 }}
+data:
+  riders.json: |
+    {{- .Values.riders | nindent 4 }}
