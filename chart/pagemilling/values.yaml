@@ -48,17 +48,16 @@ ingress:
   className: nginx
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-vy-com
-    external-dns.alpha.kubernetes.io/target: test.vy.com
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
   hosts:
-    - host: pagemilling.vy.com
+    - host: www.pagemillinginahalloweencostume.com
       paths:
         - path: /
           pathType: ImplementationSpecific
   tls:
   - secretName: chart-example-tls
     hosts:
-      - pagemilling.vy.com
+      - www.pagemillinginahalloweencostume.com
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -112,7 +111,7 @@ riders: |
     {
         "name": "Megan Gardner",
         "id": 8941333,
-        "count": 5
+        "count": 8
     },    
     {
         "name": "Charlie Martin",
