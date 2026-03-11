@@ -1,7 +1,7 @@
 # Use a multi-stage build to reduce the final image size
 # ------------------------------------------------------
 # Stage 1: Build the Next.js application
-FROM node:18-alpine AS builder
+FROM node:20-alpine AS builder
 
 # Install native build tools for better-sqlite3
 RUN apk add --no-cache python3 make g++
