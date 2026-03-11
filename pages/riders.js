@@ -5,7 +5,7 @@ export default function Riders() {
     const [riders, setRiders] = useState([]);
 
     useEffect(() => {
-        fetch('./riders.json')
+        fetch('/api/riders')
             .then(response => response.json())
             .then(data => {
                 setRiders(data);

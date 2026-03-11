@@ -28,8 +28,8 @@ serviceAccount:
 podAnnotations: {}
 podLabels: {}
 
-podSecurityContext: {}
-  # fsGroup: 2000
+podSecurityContext:
+  fsGroup: 1000
 
 securityContext: {}
   # capabilities:
@@ -45,19 +45,13 @@ service:
 
 ingress:
   enabled: true
-  className: nginx
+  className: trafik
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-vy-com
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
-  hosts:
-    - host: www.pagemillinginahalloweencostume.com
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
+  host: www.pagemillinginahalloweencostume.com
   tls:
-  - secretName: chart-example-tls
-    hosts:
-      - www.pagemillinginahalloweencostume.com
+    secretName: chart-example-tls
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -89,16 +83,9 @@ autoscaling:
 
 # Additional volumes on the output Deployment definition.
 volumes: []
-# - name: foo
-#   secret:
-#     secretName: mysecret
-#     optional: false
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts:
-  - name: riders
-    mountPath: /app/public/riders.json
-    subPath: riders.json
+volumeMounts: []
 
 nodeSelector: {}
 
@@ -106,74 +93,20 @@ tolerations: []
 
 affinity: {}
 
-riders: |
-    [
-    {
-        "name": "Megan Gardner",
-        "id": 8941333,
-        "count": 8
-    },    
-    {
-        "name": "Charlie Martin",
-        "id": 1341353,
-        "count": 5
-    },
-    {
-        "name": "Jasmine WY",
-        "id": 60384495,
-        "count": 4
-    },
-    {
-        "name": "Oliver King",
-        "id": 1068828,
-        "count": 2
-    },
-    {
-        "name": "Amanda Domitrowich",
-        "id": 21875081,
-        "count": 2
-    },
-    {
-        "name": "Richard Hyndman",
-        "id": 23328705,
-        "count": 2
-    },
-    {
-        "name": "Giles Douglas",
-        "id": 1235,
-        "count": 1
-    },
-    {
-        "name": "Rupesh Kapoor",
-        "id": 1302557,
-        "count": 1
-    },
-    {
-        "name": "Jack Lund",
-        "id": 111885688,
-        "count": 1
-    },
-    {
-        "name": "Clark Penado",
-        "id": 10136932335,
-        "count": 1
-    },
-    {
-        "name": "Dan Aminzade",
-        "id": 146781,
-        "count": 1
-    },
-    {
-        "name": "Hayes Raffle",
-        "id": 148061,
-        "count": 1
-    },
-    {
-        "name": "James Porter",
-        "id": 6949,
-        "count": 1
-    }
-    ]
-    
-      
-    
+persistence:
+  enabled: true
+  size: 1Gi
+  storageClass: ""
+
+oauth2proxy:
+  enabled: true
+  image: quay.io/oauth2-proxy/oauth2-proxy:v7.6.0
+  # Set these via --set at install time:
+  #   oauth2proxy.githubClientId
+  #   oauth2proxy.githubClientSecret
+  #   oauth2proxy.cookieSecret (generate with: python3 -c 'import os,base64;print(base64.urlsafe_b64encode(os.urandom(32)).decode())')
+  githubClientId: ""
+  githubClientSecret: ""
+  cookieSecret: ""
+  # Comma-separated list of GitHub usernames allowed access
+  githubUsers: "maugt"

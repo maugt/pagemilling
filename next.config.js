@@ -1,7 +1,9 @@
-/** @type {import('next').NextConfig} */const nextConfig = {}
-
+/** @type {import('next').NextConfig} */
 module.exports = {
     output: 'standalone',
+    experimental: {
+      serverComponentsExternalPackages: ['better-sqlite3'],
+    },
     async redirects() {
       return [
         {
