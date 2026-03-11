@@ -24,11 +24,14 @@ spec:
           args:
             - --provider=github
             - --email-domain=*
-            - --upstream=file:///dev/null
+            - --upstream=http://{{ include "pagemilling.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.service.port }}
+            - --proxy-prefix=/oauth2
             - --http-address=0.0.0.0:4180
             - --cookie-secure=true
             - --cookie-domain={{ .Values.ingress.host }}
             - --github-user={{ .Values.oauth2proxy.githubUsers }}
+            - --reverse-proxy=true
+            - --redirect-url=https://{{ .Values.ingress.host }}/oauth2/callback
           env:
             - name: OAUTH2_PROXY_CLIENT_ID
               valueFrom:

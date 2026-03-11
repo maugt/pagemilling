@@ -45,7 +45,7 @@ service:
 
 ingress:
   enabled: true
-  className: trafik
+  className: traefik
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-vy-com
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"

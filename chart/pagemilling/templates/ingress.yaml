@@ -61,7 +61,7 @@ spec:
                 port:
                   number: 4180
 ---
-# Protected admin ingress — requires auth via oauth2-proxy
+# Protected admin ingress — routes through oauth2-proxy which handles auth and proxies to app
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -72,8 +72,6 @@ metadata:
     {{- with .Values.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
     {{- end }}
-    nginx.ingress.kubernetes.io/auth-url: "https://{{ $host }}/oauth2/auth"
-    nginx.ingress.kubernetes.io/auth-signin: "https://{{ $host }}/oauth2/start?rd=$escaped_request_uri"
 spec:
   ingressClassName: {{ .Values.ingress.className }}
   tls:
@@ -88,15 +86,15 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ $fullName }}
+                name: {{ $fullName }}-oauth2-proxy
                 port:
-                  number: {{ $svcPort }}
+                  number: 4180
           - path: /api/admin
             pathType: Prefix
             backend:
               service:
-                name: {{ $fullName }}
+                name: {{ $fullName }}-oauth2-proxy
                 port:
-                  number: {{ $svcPort }}
+                  number: 4180
 {{- end }}
 {{- end }}
