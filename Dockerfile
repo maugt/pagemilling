@@ -33,7 +33,7 @@ RUN cp scripts/seed.js .next/standalone/scripts/
 
 # ------------------------------------------------------
 # Stage 2: Create the final, minimal image
-FROM node:18-alpine
+FROM node:20-alpine
 
 # Set the working directory
 WORKDIR /app

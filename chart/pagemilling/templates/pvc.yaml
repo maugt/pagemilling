@@ -5,6 +5,8 @@ metadata:
   name: {{ include "pagemilling.fullname" . }}-data
   labels:
     {{- include "pagemilling.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/resource-policy": keep
 spec:
   accessModes:
     - ReadWriteOnce

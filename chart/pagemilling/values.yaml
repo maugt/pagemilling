@@ -8,7 +8,7 @@ image:
   repository: ghcr.io/maugt/pagemilling/pagemilling
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "1.1.1"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -96,7 +96,7 @@ affinity: {}
 persistence:
   enabled: true
   size: 1Gi
-  storageClass: ""
+  storageClass: "nfs-client"
 
 oauth2proxy:
   enabled: true
